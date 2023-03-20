@@ -4,7 +4,7 @@
 
 #### مسئله
 
-یک ارایه $a_{1}, a_{2}, \dots, a_{n}(1 \leq a_i \leq 10^{9})$ به طول $n(1 \leq n \leq 10^{6})$ و یک عدد $T$ داریم، به ازای هر $i$ میخواهیم بیشینه $j$ ای را بیابیم به طوری که $\sum_{k=i}^j a_k \leq T$.
+یک ارایه $a_{1}, a_{2}, \dots, a_{n}(1 \leq a_i \leq T)$ به طول $n(1 \leq n \leq 10^{6})$ و یک عدد $T$ داریم، به ازای هر $i$ میخواهیم بیشینه $j$ ای را بیابیم به طوری که $\sum_{k=i}^j a_k \leq T$.
 
 #### راه حل
 
@@ -58,12 +58,13 @@ int main(){
     long long sum = 0; // (1)!
 
     while(ptri < n){
-        while(ptrj < n-1 && sum + a[ptrj + 1] <= T) { // (2)!
+        ptrj = max(ptrj, ptri-1); // (2)!
+        while(ptrj < n-1 && sum + a[ptrj + 1] <= T) { // (3)!
             ptrj++;
             sum += a[ptrj];
         }
-        cout << ptrj + 1 << ' '; // (3)!
-        if(ptri <= ptrj) sum -= a[ptri]; // (4)!
+        cout << ptrj + 1 << ' '; // (4)!
+        if(ptri <= ptrj) sum -= a[ptri]; // (5)!
         ptri++;
     }
 }
